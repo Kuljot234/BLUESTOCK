@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: left;
+        }
+        form {
+            border: 3px solid #f1f1f1;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4725f0;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+        .container {
+            padding: 16px;
+        }
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        .google-btn {
+            background-color: #b6c1d4;
+            color: white;
+            padding: 10px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+        .google-btn img {
+            vertical-align: middle;
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+        }
+        .or-container {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 14px;
+            color: #666;
+            position: relative;
+        }
+        .or-container:before,
+        .or-container:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #ccc;
+        }
+        .or-container:before {
+            left: 0;
+        }
+        .or-container:after {
+            right: 0;
+        }
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+        }
+
+        /* Captcha styling */
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: fit-content;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-container .checkmark {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        .checkbox-container input[type="checkbox"]:checked + .checkmark:after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #4285f4;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .captcha-text {
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .captcha-logo img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Password visibility toggle */
+        .password-container {
+            position: relative;
+        }
+        .password-container input {
+            padding-right: 40px;
+        }
+        .password-container .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 12px;
+            cursor: pointer;
+        }
+        .toggle-password img {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* New account link */
+        .new-account {
+            text-align: center;
+            margin-top: 16px;
+        }
+    </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</head>
+<body>
+    <form action="https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email%20profile&access_type=online" method="post">
+        <div class="imgcontainer">
+            <img src="bluestock.jpg.png" alt="bluestock" class="avatar">
+        </div>
+        <div class="container">
+            <label for="uname"><b>Email Address</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+            <span class="psw"><a href="#">Forgot password?</a></span>
+
+            <label for="psw"><b>Password</b></label>
+            <div class="password-container">
+                <input type="password" placeholder="Enter Password" name="psw" id="password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <img src="password.jpg.png" >
+                </span>
+            </div>
+
+            <!-- Captcha Section -->
+            <div class="captcha-container">
+                <label class="checkbox-container">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <span class="captcha-text">I'm not a robot</span>
+                <div class="captcha-logo">
+                    <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" alt="reCAPTCHA">
+                </div>
+            </div>
+
+            <label>
+                <input type="checkbox" checked="checked" name="remember"> Keep me signed in
+                <button type="submit">Login</button>
+            </label>
+        </div>
+
+        <!-- OR Separator -->
+        <div class="or-container">
+            <span>or sign in with</span>
+        </div>
+
+        <!-- Google Sign-In Button -->
+        <div class="container">
+            <button type="button" class="google-btn">
+                <img src="google.jpg.png" alt="Google">
+                Continue with Google
+            </button>
+        </div>
+
+        <!-- New Account Link -->
+        <div class="new-account">
+            <a href="#">Create a new account</a>
+        </div>
+    </form>
+
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var passwordIcon = document.querySelector(".toggle-password img");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                passwordIcon.src = "hide-password-icon.png";
+            } else {
+                passwordInput.type = "password";
+                passwordIcon.src = "show-password-icon.png";
+            }
+        }
+    </script>
+</body>
+</html>
